@@ -83,7 +83,7 @@ namespace GraphQL.Samples.Server
 
             app.UseGraphQLWebSockets<DamSchema>("/graphql");
             app.UseGraphQL<DamSchema, GraphQLHttpMiddlewareWithLogs<DamSchema>>("/graphql");
-            
+
             app.UseGraphQLPlayground(new GraphQLPlaygroundOptions
             {
                 Path = "/ui/playground",
@@ -91,6 +91,8 @@ namespace GraphQL.Samples.Server
                 {
                     ["editor.theme"] = "light",
                     ["tracing.hideTracingResponse"] = false,
+                    ["schema.polling.enable"] = false,
+                    ["schema.polling.interval"] = 60000,
                 }
             });
 
