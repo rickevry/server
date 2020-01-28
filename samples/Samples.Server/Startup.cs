@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using Samples.Schemas.DAM;
 
 #if !NETCOREAPP2_2
 using Microsoft.AspNetCore.Server.Kestrel.Core;
@@ -56,8 +57,8 @@ namespace GraphQL.Samples.Server
 #endif
 
             services
-                .AddSingleton<IChat, Chat>()
-                .AddSingleton<ChatSchema>()
+                .AddDamServices()
+                .AddTransient<DamSchema>()
                 .AddGraphQL(options =>
                 {
                     options.EnableMetrics = true;
@@ -69,7 +70,7 @@ namespace GraphQL.Samples.Server
                 })
                 .AddWebSockets()
                 .AddDataLoader()
-                .AddGraphTypes(typeof(ChatSchema));
+                .AddGraphTypes(typeof(DamSchema));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -79,9 +80,9 @@ namespace GraphQL.Samples.Server
                 app.UseDeveloperExceptionPage();
 
             app.UseWebSockets();
-            app.UseGraphQLWebSockets<ChatSchema>("/graphql");
 
-            app.UseGraphQL<ChatSchema, GraphQLHttpMiddlewareWithLogs<ChatSchema>>("/graphql");
+            app.UseGraphQLWebSockets<DamSchema>("/graphql");
+            app.UseGraphQL<DamSchema, GraphQLHttpMiddlewareWithLogs<DamSchema>>("/graphql");
             
             app.UseGraphQLPlayground(new GraphQLPlaygroundOptions
             {

@@ -25,6 +25,7 @@
     <ProjectReference Include="..\..\src\Ui.Altair\Ui.Altair.csproj" />
     <ProjectReference Include="..\..\src\Ui.Voyager\Ui.Voyager.csproj" />
     <ProjectReference Include="..\Samples.Schemas.Chat\Samples.Schemas.Chat.csproj" />
+    <ProjectReference Include="..\Samples.Schemas.DAM\Samples.Schemas.DAM.csproj" />
   </ItemGroup>
 
   <ItemGroup Label="References for .NET Core 2.2" Condition="'$(IsNetCore30OnwardsTarget)' == 'False'">
